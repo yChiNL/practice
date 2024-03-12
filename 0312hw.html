@@ -1,0 +1,79 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <title> JS:API</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> 
+</head>
+<body>
+    <h3>API PRACTICE</h3>
+    <h4>Fetch</h4>
+    <button onclick="showFunction(fetchget);">get</button>
+    <button onclick="showFunction(fetchpost);">post</button>
+    <button onclick="showFunction(fetchput);">put</button>
+    <button onclick="showFunction(fetchdelete);">delete</button>
+    <br>
+    <b class="p" style="display: none;">Function code:</b>
+    <div id="code" style="white-space: pre-wrap;"></div><br>    
+    <!-- <pre> 元素中的文本會保留原始格式，包括空格和換行符 -->
+    <b class="p" style="display: none;">JSON output:</b>
+    <pre id="jsonDisplay" style="white-space: pre-wrap;"></pre> 
+
+    <script>
+        function showFunction(func){
+            var show=document.getElementsByClassName('p');
+            Array.from(show).forEach(element => element.style.display = 'block');
+            document.getElementById('code').innerText = func.toString(); // 在畫面上顯示程式碼字串
+            func();
+        }
+
+        function fetchget(){
+            fetch('https://dummyjson.com/products/1')
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                document.getElementById('jsonDisplay').innerText = JSON.stringify(data,null,2);
+            })
+        }
+        function fetchpost(){
+            fetch('https://dummyjson.com/products/add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    title: 'BMW Pencil',
+                    /* other product data */
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                document.getElementById('jsonDisplay').innerText = JSON.stringify(data);
+            })
+        }
+        function fetchput(){
+            fetch('https://dummyjson.com/products/1', {
+                method: 'PUT', /* or PATCH */
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    title: 'iPhone Galaxy +1'
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                document.getElementById('jsonDisplay').innerText = JSON.stringify(data);
+            })
+        }
+        function fetchdelete(){
+            fetch('https://dummyjson.com/products/1', {
+                method: 'DELETE',
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                document.getElementById('jsonDisplay').innerText = JSON.stringify(data);
+            })
+        }
+    </script>
+</body>
+</html>
