@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <title> JS:API</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> 
+</head>
+<body>
+    <h3>API PRACTICE</h3>
+    <label for="Choose">Choose a API function:</label>
+    <select id="Choose" name="Choose">
+        <option value="fetch">Fetch </option>
+        <option value="axios">Axios</option>
+    </select>
+
+    <button onclick="showFunction(getRequest);">get</button>
+    <button onclick="showFunction(postRequest);">post</button>
+    <button onclick="showFunction(putRequest);">put</button>
+    <button onclick="showFunction(deleteRequest);">delete</button>
+    <br>
+    <b class="p" style="display: none;">Function code:</b>
+    <div id="code" style="white-space: pre-wrap;"></div>
+    <br>    
+    <b class="p" style="display: none;">JSON output:</b>
+    <pre id="jsonDisplay" style="white-space: pre-wrap;"></pre> 
+
+    <script>
+        function showFunction(func){
+            var show=document.getElementsByClassName('p');
+            Array.from(show).forEach(element => element.style.display = 'block');
+            document.getElementById('code').innerText = func.toString(); // 在畫面上顯示程式碼字串
+            func();
+        }
+
+        function getRequest() {
+            var selectedOption = document.getElementById('Choose').value;
+
+            if (selectedOption === 'fetch') {
+                fetch('https://dummyjson.com/products/1')
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    document.getElementById('jsonDisplay').innerText = JSON.stringify(data,null,2);
+                })
+            } else if (selectedOption === 'axios') {
+                axios.get('https://dummyjson.com/products/1')
+                .then(response => {
+                    console.log(response.data);
+                    document.getElementById('jsonDisplay').innerText = JSON.stringify(response.data,null,2);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+            }
+        }
+
+        function postRequest() {
+            var selectedOption = document.getElementById('Choose').value;
+
+            if (selectedOption === 'fetch') {
+                fetch('https://dummyjson.com/products/add', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title: 'BMW Pencil',
+                        /* other product data */
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    document.getElementById('jsonDisplay').innerText = JSON.stringify(data,null,2);
+                })
+            } else if (selectedOption === 'axios') {
+                axios.post('https://dummyjson.com/products/add', {
+                    title: 'BMW Pencil'
+                })
+                .then(response => {
+                    console.log(response.data);
+                    document.getElementById('jsonDisplay').innerText = JSON.stringify(response.data,null,2);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+            }
+        }
+
+        function putRequest() {
+            var selectedOption = document.getElementById('Choose').value;
+
+            if (selectedOption === 'fetch') {
+                fetch('https://dummyjson.com/products/1', {
+                    method: 'PUT', /* or PATCH */
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title: 'iPhone Galaxy +1'
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    document.getElementById('jsonDisplay').innerText = JSON.stringify(data,null,2);
+                })
+            } else if (selectedOption === 'axios') {
+                axios.put('https://dummyjson.com/products/1', {
+                    title: 'iPhone Galaxy +1'
+                })
+                .then(response => {
+                    console.log(response.data);
+                    document.getElementById('jsonDisplay').innerText = JSON.stringify(response.data,null,2);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+            }
+        }
+
+        function deleteRequest() {
+            var selectedOption = document.getElementById('Choose').value;
+
+            if (selectedOption === 'fetch') {
+                fetch('https://dummyjson.com/products/1', {
+                    method: 'DELETE',
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    document.getElementById('jsonDisplay').innerText = JSON.stringify(data,null,2);
+                })
+            } else if (selectedOption === 'axios') {
+                axios.delete('https://dummyjson.com/products/1')
+                .then(response => {
+                    console.log(response.data);
+                    document.getElementById('jsonDisplay').innerText = JSON.stringify(response.data,null,2);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
