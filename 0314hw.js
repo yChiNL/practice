@@ -52,3 +52,31 @@ axios.post('https://dummyjson.com/products/add',{
     .then( (response) => console.log(response.data))
     .catch( (error) => console.log(error))
 
+/*Promise&Async/Await*/
+//原promise
+const myName = function() {
+    return new Promise(function(resolve, reject) {
+            setTimeout(() => {
+            resolve('Ray');
+        }, 300);
+    })
+}
+
+myName()
+    .then((res) => console.log('成功：'+ res))
+    .catch((error) => console.log('失敗：' + error));
+
+/* 依照題目內容可依序化簡成以下 */
+//async
+const myName2 = async () => 'Ray';
+myName2().then((res) => console.log(res)); 
+//OR 
+const myName3 = async () => 'Ray';
+myName3().then(console.log);
+
+//await
+const myName4 = async () => 'Ray';
+console.log(await myName4());
+//OR
+const myName5 = async () => 'Ray';
+(async () => { console.log(await myName5()); })();

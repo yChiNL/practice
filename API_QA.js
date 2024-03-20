@@ -11,8 +11,8 @@ test.get('/api/',{
 })
 .then((response)=>{
     console.log(response.data);
-    console.log(response.config);
-    console.log(response.config.url)
+    // console.log(response.config);
+    // console.log(response.config.url)
 });
 
 
